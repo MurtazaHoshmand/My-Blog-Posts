@@ -1,0 +1,22 @@
+<?php
+
+// here we implement a global scope which is responsible for adding a query that make the order of items desc
+// to use this scope we just need to create an obj of it to desired model
+
+namespace App\Scopes;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Scope;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Auth;
+
+class DeletedAdminScope implements Scope{
+    public function apply(Builder $builder, Model $model){
+
+    if(Auth::check() && Auth::user()->is_admin){
+        $builder->withTrashed();
+    }
+
+    }
+    
+}
